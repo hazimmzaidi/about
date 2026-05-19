@@ -1,109 +1,448 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My Blog</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 600px;
-            margin: auto;
-            padding: 20px;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hazim Zaidi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        .profile {
-            width: 120px;
-            border-radius: 60px;
-            display: block;
-            margin-bottom: 10px;
-        }
+    :root {
+      --bg: #fafaf8;
+      --surface: #f2f1ed;
+      --border: #e2e0d8;
+      --text: #1a1a18;
+      --muted: #6b6b66;
+      --hint: #a8a89f;
+      --accent: #2d5a3d;
+      --accent-light: #e8f0ea;
+    }
 
-        a {
-            text-decoration: none;
-            color: blue;
-        }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
 
-        a:hover {
-            text-decoration: underline;
-        }
+    .page {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
 
-        li {
-            margin-bottom: 10px;
-        }
+    /* Header */
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 3rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid var(--border);
+    }
 
-        .project-desc {
-            margin: 5px 0 0 0;
-            font-size: 14px;
-        }
-    </style>
+    .avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      flex-shrink: 0;
+      background: var(--surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'DM Serif Display', serif;
+      font-size: 24px;
+      color: var(--muted);
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .header-text h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 26px;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      margin-bottom: 5px;
+    }
+
+    .header-text p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+
+    .header-links {
+      display: flex;
+      gap: 14px;
+    }
+
+    .header-links a {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: color 0.15s;
+    }
+
+    .header-links a:hover { color: var(--text); }
+
+    .header-links svg {
+      width: 14px;
+      height: 14px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* Section label */
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--hint);
+      margin-bottom: 1rem;
+    }
+
+    /* Posts */
+    .posts { margin-bottom: 3rem; }
+
+    .post-card {
+      display: flex;
+      gap: 16px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      text-decoration: none;
+      color: inherit;
+      align-items: flex-start;
+      transition: opacity 0.15s;
+    }
+
+    .post-card:first-of-type { padding-top: 0; }
+    .post-card:last-of-type { border-bottom: none; }
+    .post-card:hover { opacity: 0.7; }
+
+    .post-thumb {
+      width: 96px;
+      height: 72px;
+      border-radius: 6px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      flex-shrink: 0;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .post-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Placeholder icon inside thumb when no image */
+    .post-thumb .thumb-icon {
+      font-size: 26px;
+      opacity: 0.35;
+    }
+
+    .post-body { flex: 1; min-width: 0; }
+
+    .post-meta {
+      font-size: 11px;
+      color: var(--hint);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .post-source {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 1px 7px;
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    .post-title {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.45;
+      margin-bottom: 4px;
+    }
+
+    .post-desc {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* Projects */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px;
+    }
+
+    .project-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      transition: border-color 0.15s;
+    }
+
+    .project-card:hover { border-color: var(--accent); }
+
+    .project-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--accent-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    .project-name {
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .badge {
+      font-size: 10px;
+      background: var(--accent-light);
+      color: var(--accent);
+      border-radius: 20px;
+      padding: 1px 6px;
+      font-weight: 500;
+    }
+
+    .project-desc {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .header { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .post-thumb { width: 72px; height: 56px; }
+    }
+  </style>
 </head>
-
 <body>
+<div class="page">
 
-    <img src="hazim.png" class="profile">
-    <h1>Hazim Zaidi</h1>
+  <!-- Header -->
+  <header class="header">
+    <div class="avatar">
+      <!-- Replace the initials below with: <img src="hazim.png" alt="Hazim Zaidi"> -->
+      HZ
+    </div>
+    <div class="header-text">
+      <h1>Hazim Zaidi</h1>
+      <p>R&D Programme Manager &middot; Data, energy transition &amp; business development</p>
+      <div class="header-links">
+        <a href="https://www.linkedin.com/in/hazim-zaidi-614470194/">
+          <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn
+        </a>
+        <a href="Hazim_Zaidi_April2026.pdf" download>
+          <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download CV
+        </a>
+      </div>
+    </div>
+  </header>
 
-    <h2>About</h2>
-    <p>
-        I am Hazim Zaidi, a Research & Development Programme Manager with interests in 
-        data, energy transition, and business development.
-    </p>
+  <!-- Posts -->
+  <section class="posts">
+    <p class="section-label">Writing</p>
 
-    <h2>Posts</h2>
-    <ul>
-        <li><a href="https://www.linkedin.com/pulse/cold-homes-electric-heating-gas-boilers-hazim-zaidi-rwuae/?trackingId=58sf0lV%2FTliMqQwbIPs%2BMw%3D%3D">Cold Homes: Electric Heating vs Gas Boilers</a></li>
-        <li><a href="https://www.linkedin.com/pulse/learnings-from-ai-transport-modelling-project-hazim-zaidi-l0o2f/?trackingId=c2Iqpd1uTHGrudzFXcKQIg%3D%3D">Learnings from AI in Transport Modelling project</a></li>
-        <li><a href="https://www.linkedin.com/pulse/ai-beyond-smart-junctions-hazim-zaidi-f6kje/?trackingId=c2Iqpd1uTHGrudzFXcKQIg%3D%3D">AI in Beyond Smart Junctions project</a></li>
-        <li><a href="https://www.linkedin.com/pulse/city-science-turns-10-hazim-zaidi-ccore/?trackingId=78gMe3%2BXRvapMrEIDKpuLw%3D%3D">City Science Turns 10!</a></li>
-        <li><a href="https://www.linkedin.com/pulse/what-digital-twins-hazim-zaidi-mamfe/?trackingId=78gMe3%2BXRvapMrEIDKpuLw%3D%3D">What are Digital Twins?</a></li>
-        <li><a href="https://www.linkedin.com/pulse/solar-energy-potential-project-manifesting-future-uk-my-hazim-zaidi-g2cye/?trackingId=78gMe3%2BXRvapMrEIDKpuLw%3D%3D">Solar Energy Potential Project</a></li>
-        <li><a href="https://www.linkedin.com/pulse/30daymapchallenge-cadences-expansion-us-hazim-zaidi-d8qwe/?trackingId=78gMe3%2BXRvapMrEIDKpuLw%3D%3D">#30DayMapChallenge & Cadence Expansion</a></li>
-        <li><a href="https://www.linkedin.com/pulse/my-city-science-2025-wrapped-hazim-zaidi-d3fue/?trackingId=78gMe3%2BXRvapMrEIDKpuLw%3D%3D">My City Science 2025 Wrapped</a></li>
-        <li><a href="https://www.linkedin.com/pulse/hello-2026-let-results-do-talking-hazim-zaidi-wttme/?trackingId=78gMe3%2BXRvapMrEIDKpuLw%3D%3D">Hello 2026: January Learnings</a></li>
-        <li><a href="https://hazimzaidi.substack.com/p/rooftop-balcony-and-portable-solar">Rooftop, Balcony & Portable Solar: What's the Difference?</a></li>
-        <li><a href="https://hazimzaidi.substack.com/p/the-ev-race-batteries-sustainable">The EV Race, Batteries, Sustainable Mining, and why Nuclear is an interesting option</a></li>
-    </ul>
+    <!--
+      HOW TO ADD A POST IMAGE:
+      Replace the <div class="post-thumb"> with:
+        <div class="post-thumb"><img src="your-image.jpg" alt="description"></div>
+      Recommended image size: 192×144px (2x) or 96×72px (1x), JPG or WebP.
+    -->
 
-    <h2>Projects</h2>
-    <p>I have been involved with a couple of projects in the past years.</p>
+    <a href="https://www.linkedin.com/pulse/cold-homes-electric-heating-gas-boilers-hazim-zaidi-rwuae/" class="post-card">
+      <div class="post-thumb">
+        <span class="thumb-icon">🏠</span>
+        <!-- <img src="posts/cold-homes.jpg" alt="Cold homes post cover"> -->
+      </div>
+      <div class="post-body">
+        <div class="post-meta">Energy <span class="post-source">LinkedIn</span></div>
+        <div class="post-title">Cold homes: electric heating vs gas boilers</div>
+        <div class="post-desc">A cost and comfort comparison for UK households navigating the energy transition.</div>
+      </div>
+    </a>
 
-    <ul>
-        <li>
-            <a href="https://hazim888.wixsite.com/solarable">
-                Solarable Project – University Startup (ongoing)
-            </a>
-            <p class="project-desc">
-                A renewable energy startup initiative started in undergrad, focusing on affordable solar solutions.
-            </p>
-        </li>
+    <a href="https://www.linkedin.com/pulse/learnings-from-ai-transport-modelling-project-hazim-zaidi-l0o2f/" class="post-card">
+      <div class="post-thumb">
+        <span class="thumb-icon">🚌</span>
+      </div>
+      <div class="post-body">
+        <div class="post-meta">AI &amp; Transport <span class="post-source">LinkedIn</span></div>
+        <div class="post-title">Learnings from AI in transport modelling project</div>
+        <div class="post-desc">Key takeaways from applying machine learning to transport demand models.</div>
+      </div>
+    </a>
 
-        <li>
-            <a href="https://www.kaggle.com/hazimzaidi">
-                Data Science / Machine Learning Projects (Kaggle)
-            </a>
-            <p class="project-desc">
-                Self-learning journey exploring machine learning models, including work on the Titanic dataset.
-            </p>
-        </li>
+    <a href="https://www.linkedin.com/pulse/ai-beyond-smart-junctions-hazim-zaidi-f6kje/" class="post-card">
+      <div class="post-thumb">
+        <span class="thumb-icon">🚦</span>
+      </div>
+      <div class="post-body">
+        <div class="post-meta">AI <span class="post-source">LinkedIn</span></div>
+        <div class="post-title">AI in beyond smart junctions project</div>
+        <div class="post-desc">Using AI to optimise junction performance across urban networks.</div>
+      </div>
+    </a>
 
-        <li>
-            <a href="https://www.kaggle.com/code/hazimzaidi/predicting-premier-league-wins-mar-antaya">
-                Premier League Predictor - Machine Learning (Kaggle)
-            </a>
-            <p class="project-desc">
-                Using machine learning to predict Premier League wins/draws/losses by Mariana Antaya
-            </p>
-        </li>
-        
-    </ul>
+    <a href="https://www.linkedin.com/pulse/city-science-turns-10-hazim-zaidi-ccore/" class="post-card">
+      <div class="post-thumb">
+        <span class="thumb-icon">🏙️</span>
+      </div>
+      <div class="post-body">
+        <div class="post-meta">Milestone <span class="post-source">LinkedIn</span></div>
+        <div class="post-title">City Science turns 10!</div>
+        <div class="post-desc">Celebrating a decade of urban innovation and research at City Science.</div>
+      </div>
+    </a>
 
-    <p>
-        <a href="Hazim_Zaidi_April2026.pdf" download>Download My CV</a>
-    </p>
+    <a href="https://www.linkedin.com/pulse/what-digital-twins-hazim-zaidi-mamfe/" class="post-card">
+      <div class="post-thumb">
+        <span class="thumb-icon">🧊</span>
+      </div>
+      <div class="post-body">
+        <div class="post-meta">Technology <span class="post-source">LinkedIn</span></div>
+        <div class="post-title">What are digital twins?</div>
+        <div class="post-desc">An explainer on virtual replicas of physical systems and their real-world applications.</div>
+      </div>
+    </a>
 
-    <p>
-        Connect with me on 
-        <a href="https://www.linkedin.com/in/hazim-zaidi-614470194//">LinkedIn</a>.
-    </p>
+    <a href="https://www.linkedin.com/pulse/solar-energy-potential-project-manifesting-future-uk-my-hazim-zaidi-g2cye/" class="post-card">
+      <div class="post-thumb">
+        <span class="thumb-icon">☀️</span>
+      </div>
+      <div class="post-body">
+        <div class="post-meta">Energy <span class="post-source">LinkedIn</span></div>
+        <div class="post-title">Solar energy potential project</div>
+        <div class="post-desc">Mapping and modelling rooftop solar capacity across the UK.</div>
+      </div>
+    </a>
 
+    <a href="https://www.linkedin.com/pulse/30daymapchallenge-cadences-expansion-us-hazim-zaidi-d8qwe/" class="post-card">
+      <div class="post-thumb">
+        <span class="thumb-icon">🗺️</span>
+      </div>
+      <div class="post-body">
+        <div class="post-meta">Data &amp; Maps <span class="post-source">LinkedIn</span></div>
+        <div class="post-title">#30DayMapChallenge &amp; Cadence expansion</div>
+        <div class="post-desc">Maps made during the challenge and notes on expanding the Cadence project to the US.</div>
+      </div>
+    </a>
+
+    <a href="https://www.linkedin.com/pulse/my-city-science-2025-wrapped-hazim-zaidi-d3fue/" class="post-card">
+      <div class="post-thumb">
+        <span class="thumb-icon">📊</span>
+      </div>
+      <div class="post-body">
+        <div class="post-meta">Reflection <span class="post-source">LinkedIn</span></div>
+        <div class="post-title">My City Science 2025 wrapped</div>
+        <div class="post-desc">A year in review: projects, learnings, and highlights from 2025.</div>
+      </div>
+    </a>
+
+    <a href="https://www.linkedin.com/pulse/hello-2026-let-results-do-talking-hazim-zaidi-wttme/" class="post-card">
+      <div class="post-thumb">
+        <span class="thumb-icon">🔭</span>
+      </div>
+      <div class="post-body">
+        <div class="post-meta">Reflection <span class="post-source">LinkedIn</span></div>
+        <div class="post-title">Hello 2026: January learnings</div>
+        <div class="post-desc">What I picked up in the first month of the year and what I'm focusing on going forward.</div>
+      </div>
+    </a>
+
+    <a href="https://hazimzaidi.substack.com/p/rooftop-balcony-and-portable-solar" class="post-card">
+      <div class="post-thumb">
+        <span class="thumb-icon">⚡</span>
+      </div>
+      <div class="post-body">
+        <div class="post-meta">Energy <span class="post-source">Substack</span></div>
+        <div class="post-title">Rooftop, balcony &amp; portable solar: what's the difference?</div>
+        <div class="post-desc">Breaking down the three types of residential solar installations available today.</div>
+      </div>
+    </a>
+
+    <a href="https://hazimzaidi.substack.com/p/the-ev-race-batteries-sustainable" class="post-card">
+      <div class="post-thumb">
+        <span class="thumb-icon">🔋</span>
+      </div>
+      <div class="post-body">
+        <div class="post-meta">Transport <span class="post-source">Substack</span></div>
+        <div class="post-title">The EV race, batteries, sustainable mining, and why nuclear is interesting</div>
+        <div class="post-desc">A deep-dive into the materials and energy behind the electric vehicle transition.</div>
+      </div>
+    </a>
+
+  </section>
+
+  <!-- Projects -->
+  <section>
+    <p class="section-label">Projects</p>
+    <div class="projects-grid">
+
+      <a href="https://hazim888.wixsite.com/solarable" class="project-card">
+        <div class="project-icon">☀️</div>
+        <div class="project-name">Solarable <span class="badge">Ongoing</span></div>
+        <div class="project-desc">University startup focused on affordable solar energy solutions.</div>
+      </a>
+
+      <a href="https://www.kaggle.com/hazimzaidi" class="project-card">
+        <div class="project-icon">🧠</div>
+        <div class="project-name">ML projects</div>
+        <div class="project-desc">Self-learning journey through machine learning models on Kaggle.</div>
+      </a>
+
+      <a href="https://www.kaggle.com/code/hazimzaidi/predicting-premier-league-wins-mar-antaya" class="project-card">
+        <div class="project-icon">⚽</div>
+        <div class="project-name">PL predictor</div>
+        <div class="project-desc">ML model predicting Premier League match outcomes.</div>
+      </a>
+
+    </div>
+  </section>
+
+</div>
 </body>
 </html>
