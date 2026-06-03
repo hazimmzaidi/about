@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
-<!-- This is used for commenting in HTML -->
+
 <!-- ============================================================
      HEAD: Page metadata and embedded styles
      ============================================================ -->
 <head>
     <title>My Blog</title>
     <style>
-        /* --- This is used for commenting in CSS --- */
+
         /* --- Base layout: centres content and sets default font --- */
         body {
             font-family: Arial, sans-serif;
@@ -45,6 +45,39 @@
             font-size: 14px;
         }
 
+        /* --- Dark mode: overrides colours when .dark class is on body --- */
+        body.dark {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+
+        body.dark a {
+            color: #7eb8f7;
+        }
+
+        /* --- Dark mode toggle button: fixed in top-right corner --- */
+        #theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        /* --- Copied tooltip: small pop-up that appears near clicked links --- */
+        .copied-tip {
+            position: absolute;
+            background: #333;
+            color: #fff;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
     </style>
 </head>
 
@@ -62,6 +95,15 @@
     <p>
         I am Hazim Zaidi, a Research & Development Programme Manager with interests in 
         data, energy transition, and business development.
+    </p>
+
+    <!-- Links: CV download and LinkedIn profile -->
+    <p>
+        <a href="Hazim_Zaidi_April2026.pdf" download>Download My CV</a>
+    </p>
+    <p>
+        Connect with me on 
+        <a href="https://www.linkedin.com/in/hazim-zaidi-614470194//">LinkedIn</a>.
     </p>
 
     <!-- Posts section: list of published articles with links -->
@@ -110,14 +152,121 @@
         </li>
     </ul>
 
-    <!-- Footer: CV download and social link -->
-    <p>
-        <a href="Hazim_Zaidi_April2026.pdf" download>Download My CV</a>
-    </p>
-    <p>
-        Connect with me on 
-        <a href="https://www.linkedin.com/in/hazim-zaidi-614470194//">LinkedIn</a>.
-    </p>
+
+    <script>
+
+        // ============================================================
+        // 1. TYPING ANIMATION: types out the h1 name letter by letter
+        // ============================================================
+        const h1 = document.querySelector('h1');
+        const fullName = h1.textContent;
+        h1.textContent = '';
+        let i = 0;
+        const type = () => {
+            if (i < fullName.length) {
+                h1.textContent += fullName[i++];
+                setTimeout(type, 80);
+            }
+        };
+        type();
+
+
+        // ============================================================
+        // 2. DARK / LIGHT MODE TOGGLE: button fixed in top-right corner
+        // ============================================================
+        const toggle = document.createElement('button');
+        toggle.id = 'theme-toggle';
+        toggle.textContent = '🌙';
+        document.body.appendChild(toggle);
+
+        // Apply saved preference from previous visit
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark');
+            toggle.textContent = '☀️';
+        }
+
+        toggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark');
+            const isDark = document.body.classList.contains('dark');
+            toggle.textContent = isDark ? '☀️' : '🌙';
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        });
+
+
+        // ============================================================
+        // 3. SCROLL-IN ANIMATIONS: fades sections in as you scroll down
+        // ============================================================
+        const animatedEls = document.querySelectorAll('h2, li, p, .profile');
+        animatedEls.forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        });
+
+        const scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    scrollObserver.unobserve(entry.target); // animate once only
+                }
+            });
+        }, { threshold: 0.1 });
+
+        animatedEls.forEach(el => scrollObserver.observe(el));
+
+
+        // ============================================================
+        // 4. LIVE SEARCH FILTER: filters posts list as you type
+        // ============================================================
+        const postHeadings = document.querySelectorAll('h2');
+        let postsUl = null;
+
+        // Find the <ul> that follows the "Posts" heading
+        postHeadings.forEach(h => {
+            if (h.textContent.trim() === 'Posts') {
+                postsUl = h.nextElementSibling;
+            }
+        });
+
+        if (postsUl) {
+            const searchInput = document.createElement('input');
+            searchInput.placeholder = 'Search posts...';
+            searchInput.style.cssText = 'width:100%; padding:8px; margin-bottom:10px; box-sizing:border-box; border:1px solid #ccc; border-radius:4px; font-size:14px;';
+            postsUl.parentNode.insertBefore(searchInput, postsUl);
+
+            searchInput.addEventListener('input', () => {
+                const query = searchInput.value.toLowerCase();
+                postsUl.querySelectorAll('li').forEach(li => {
+                    li.style.display = li.textContent.toLowerCase().includes(query) ? '' : 'none';
+                });
+            });
+        }
+
+
+        // ============================================================
+        // 5. COPIED TOOLTIP: shows "Copied!" near a link when clicked
+        // ============================================================
+        document.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                // Copy the link URL to clipboard
+                navigator.clipboard?.writeText(link.href);
+
+                // Create and position the tooltip near the click
+                const tip = document.createElement('span');
+                tip.textContent = 'Copied!';
+                tip.className = 'copied-tip';
+                document.body.appendChild(tip);
+                tip.style.left = e.pageX + 'px';
+                tip.style.top = (e.pageY - 30) + 'px';
+
+                // Fade out and remove after 1.5 seconds
+                setTimeout(() => { tip.style.opacity = '0'; }, 1000);
+                setTimeout(() => tip.remove(), 1500);
+            });
+        });
+
+    </script>
 
 </body>
 </html>
