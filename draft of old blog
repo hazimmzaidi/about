@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 <html>
+<!-- This is used for commenting in HTML -->
+<!-- ============================================================
+     HEAD: Page metadata and embedded styles
+     ============================================================ -->
 <head>
     <title>My Blog</title>
     <style>
+        /* --- This is used for commenting in CSS --- */
+        /* --- Base layout: centres content and sets default font --- */
         body {
             font-family: Arial, sans-serif;
             max-width: 600px;
@@ -10,6 +16,7 @@
             padding: 20px;
         }
 
+        /* --- Profile image: circular crop with spacing below --- */
         .profile {
             width: 120px;
             border-radius: 60px;
@@ -17,6 +24,7 @@
             margin-bottom: 10px;
         }
 
+        /* --- Link styles: removes underline by default, adds on hover --- */
         a {
             text-decoration: none;
             color: blue;
@@ -26,28 +34,37 @@
             text-decoration: underline;
         }
 
+        /* --- List items: adds vertical spacing between entries --- */
         li {
             margin-bottom: 10px;
         }
 
+        /* --- Project descriptions: smaller text tucked under each project title --- */
         .project-desc {
             margin: 5px 0 0 0;
             font-size: 14px;
         }
+
     </style>
 </head>
 
+<!-- ============================================================
+     BODY: All visible page content
+     ============================================================ -->
 <body>
 
+    <!-- Profile: photo and name at the top of the page -->
     <img src="hazim.png" class="profile">
     <h1>Hazim Zaidi</h1>
 
+    <!-- About section: short bio -->
     <h2>About</h2>
     <p>
         I am Hazim Zaidi, a Research & Development Programme Manager with interests in 
         data, energy transition, and business development.
     </p>
 
+    <!-- Posts section: list of published articles with links -->
     <h2>Posts</h2>
     <ul>
         <li><a href="https://www.linkedin.com/pulse/cold-homes-electric-heating-gas-boilers-hazim-zaidi-rwuae/?trackingId=58sf0lV%2FTliMqQwbIPs%2BMw%3D%3D">Cold Homes: Electric Heating vs Gas Boilers</a></li>
@@ -63,9 +80,9 @@
         <li><a href="https://hazimzaidi.substack.com/p/the-ev-race-batteries-sustainable">The EV Race, Batteries, Sustainable Mining, and why Nuclear is an interesting option</a></li>
     </ul>
 
+    <!-- Projects section: past and ongoing work with descriptions -->
     <h2>Projects</h2>
     <p>I have been involved with a couple of projects in the past years.</p>
-
     <ul>
         <li>
             <a href="https://hazim888.wixsite.com/solarable">
@@ -75,7 +92,6 @@
                 A renewable energy startup initiative started in undergrad, focusing on affordable solar solutions.
             </p>
         </li>
-
         <li>
             <a href="https://www.kaggle.com/hazimzaidi">
                 Data Science / Machine Learning Projects (Kaggle)
@@ -84,7 +100,6 @@
                 Self-learning journey exploring machine learning models, including work on the Titanic dataset.
             </p>
         </li>
-
         <li>
             <a href="https://www.kaggle.com/code/hazimzaidi/predicting-premier-league-wins-mar-antaya">
                 Premier League Predictor - Machine Learning (Kaggle)
@@ -93,13 +108,12 @@
                 Using machine learning to predict Premier League wins/draws/losses by Mariana Antaya
             </p>
         </li>
-        
     </ul>
 
+    <!-- Footer: CV download and social link -->
     <p>
         <a href="Hazim_Zaidi_April2026.pdf" download>Download My CV</a>
     </p>
-
     <p>
         Connect with me on 
         <a href="https://www.linkedin.com/in/hazim-zaidi-614470194//">LinkedIn</a>.
