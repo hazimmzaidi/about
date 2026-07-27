@@ -1,0 +1,14 @@
+# Dependencies — never commit these; they're reinstallable from package.json
+node_modules/
+
+# Abandoned Next.js rebuild, kept locally for reference only
+portfolio (javascript_backup)/
+
+# Next.js build output
+.next/
+out/
+
+# Editor and OS cruft
+.DS_Store
+Thumbs.db
+*.log
