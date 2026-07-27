@@ -5,6 +5,8 @@
      HEAD: Page metadata and embedded styles
      ============================================================ -->
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>My Blog HZ</title>
     <style>
 
@@ -48,7 +50,9 @@
         /* --- Project grid: displays cards side by side in a 3-column layout --- */
         .project-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            /* 2x2 with four cards. Was repeat(3, 1fr), which left the
+               fourth card stranded alone on a second row. */
+            grid-template-columns: repeat(2, 1fr);
             gap: 16px;
             list-style: none;
             padding: 0;
@@ -169,21 +173,32 @@
 
     <!-- Profile: photo and name at the top of the page -->
     <img src="hazim.png" class="profile">
-    <h1>Hazim Zaidi</h1>
+    <h1>HZ</h1>
 
     <!-- About section: short bio -->
     <h2>About</h2>
     <p>
-        I am Hazim Zaidi, a Research & Development Programme Manager with interests in 
-        data, energy transition, and business development.
+        I am Hazim Zaidi, a Research & Development Programme Manager and energy analyst.
+        I work at the intersection of data and the energy transition — modelling solar
+        potential, analysing infrastructure through digital twins and transport simulations,
+        and turning that analysis into programmes and business cases that move projects forward.
     </p>
+
+    <!-- Skills section: tools and methods used in energy analysis work -->
+    <h2>Skills & Tools</h2>
+    <ul>
+        <li><strong>Python & Data Science</strong> — data modelling and machine learning, applied to energy and infrastructure datasets.</li>
+        <li><strong>GIS & Spatial Mapping</strong> — spatial analysis of infrastructure and energy potential.</li>
+        <li><strong>Energy Modelling (Solar/PV)</strong> — assessing solar potential and renewable energy feasibility.</li>
+        <li><strong>Digital Twins & Transport Modelling</strong> — simulation-based analysis of infrastructure and transport systems.</li>
+    </ul>
 
     <!-- Links: CV download and LinkedIn profile -->
     <p>
         <a href="Hazim_Zaidi_April2026.pdf" download>Download My CV</a>
     </p>
     <p>
-        Connect with me on 
+        Connect with me on
         <a href="https://www.linkedin.com/in/hazim-zaidi-614470194//">LinkedIn</a>.
     </p>
 
@@ -215,6 +230,15 @@
                 <div class="card-title">Premier League Predictor</div>
                 <div class="card-image">⚽</div>
                 <p class="card-desc">ML model predicting Premier League wins, draws & losses.</p>
+            </a>
+        </li>
+
+        <!-- Card 4: Solar Window forecasting tool -->
+        <li>
+            <a href="https://solar-window-nine.vercel.app/" target="_blank" rel="noopener noreferrer">
+                <div class="card-title">Solar Window</div>
+                <div class="card-image">🔆</div>
+                <p class="card-desc">Finds the best 2-hour window today to set out a portable solar panel.</p>
             </a>
         </li>
 
