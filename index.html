@@ -100,10 +100,11 @@
             text-align: center;
         }
 
-        /* --- Card image placeholder: consistent fixed-height beige-toned box with emoji --- */
+        /* --- Card image placeholder: consistent fixed-height beige-toned box.
+               204px is 4:3 at the ~272px card width, so 4:3 photos show in full. --- */
         .card-image {
             width: 100%;
-            height: 110px;
+            height: 204px;
             background-color: #ede7d9;
             display: flex;
             align-items: center;
@@ -113,8 +114,10 @@
         }
 
         /* --- Photo inside a card image box: fills the box, cropping rather than
-               distorting. object-position favours the upper third so faces stay
-               in frame when a tall photo is cropped to this wide, short box. --- */
+               distorting. At two columns the box is 4:3 so nothing is cropped;
+               object-position only bites on narrow screens, where the single-column
+               layout widens the box and crops vertically — biased upward so the
+               subject stays in frame. --- */
         .card-image img {
             width: 100%;
             height: 100%;
