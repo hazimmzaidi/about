@@ -8,6 +8,9 @@ portfolio (javascript_backup)/
 .next/
 out/
 
+# Local planning notes, not part of the site
+PORTFOLIO_PLAN.md
+
 # Editor and OS cruft
 .DS_Store
 Thumbs.db
