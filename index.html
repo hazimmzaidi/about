@@ -112,6 +112,17 @@
             flex-shrink: 0;
         }
 
+        /* --- Photo inside a card image box: fills the box, cropping rather than
+               distorting. object-position favours the upper third so faces stay
+               in frame when a tall photo is cropped to this wide, short box. --- */
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 15%;
+            display: block;
+        }
+
         /* --- Card description: small muted text at the bottom of each card --- */
         .card-desc {
             font-size: 12px;
@@ -209,7 +220,9 @@
         <li>
             <a href="https://hazim888.wixsite.com/solarable">
                 <div class="card-title">Solarable Project</div>
-                <div class="card-image">☀️</div>
+                <div class="card-image">
+                    <img src="solarable.jpg" alt="Hazim holding a portable solar panel in front of an ivy-covered wall">
+                </div>
                 <p class="card-desc">A renewable energy startup focused on affordable solar solutions.</p>
             </a>
         </li>
